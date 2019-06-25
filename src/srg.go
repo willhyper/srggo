@@ -14,6 +14,7 @@ package main
 
 import "fmt"
 import "strconv"
+//import "array"
 
 type Srg struct {
 	v, k, l, u int
@@ -135,8 +136,15 @@ func (srg *Srg) Println() {
 	}
 
 }
+
+
 func main() {
 	srg := NewFilledSrg(10, 6, 3, 4)
 	srg.Println()
 
+	// m := []bool{true, false, false, true, true}
+	// n := []bool{true, false, true, false, true}
+	// fmt.Println(m)
+	// fmt.Println(n)
+	// fmt.Println(array.Dot(m,n))	
 }
