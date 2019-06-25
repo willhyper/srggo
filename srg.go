@@ -20,22 +20,25 @@ type Srg struct {
 	Matrix     []bool
 	filled     int
 	toFill     int
+	SymSquare  [][]bool
 }
 
 var _map = map[bool]int{false: 0, true: 1}
 
 func NewSrg(v, k, l, u int) *Srg {
 
-	m := make([]bool, v*(v+1)/2)
+	ss := make([][]bool, 1)
+	ss[0] = []bool{false}
 
 	srg := Srg{
 		v:      v,
 		k:      k,
 		l:      l,
 		u:      u,
-		Matrix: m,
+		Matrix: make([]bool, v*(v+1)/2),
 		filled: 0,
 		toFill: v,
+		SymSquare: ss,
 	}
 
 	return &srg
@@ -70,6 +73,7 @@ func NewFilledSrg(v, k, l, u int) *Srg {
 	return srg
 }
 
+// diagonal element is excluded
 func (srg *Srg) PivotRow() ([]bool, []int){
 	rowlen := srg.v - srg.toFill
 
@@ -87,6 +91,8 @@ func (srg *Srg) PivotRow() ([]bool, []int){
 	return pivotRow, indices
 
 }
+
+
 func (srg *Srg) Fill(row []bool) {
 	if lenrow := len(row); lenrow != srg.toFill {
 		panic(fmt.Sprintf("Fill row of wrong length. Expecting len %v but got %v\n", srg.toFill, lenrow))
@@ -102,6 +108,16 @@ func (srg *Srg) Fill(row []bool) {
 	}
 	srg.filled += srg.toFill
 	srg.toFill -= 1
+
+	// dim := len(srg.SymSquare)
+	// update SymSquare content from PivotRow, which diagonal element is excluded.
+	// size from dim x dim to (dim+1) x (dim+1)
+	pv, _ := srg.PivotRow()
+	for ci, cv := range srg.SymSquare{
+		srg.SymSquare[ci] = append(cv, pv[ci])
+	}
+	pv = append(pv, false) // diagnonal element is always false
+	srg.SymSquare = append(srg.SymSquare, pv)
 }
 
 func (srg *Srg) Println() {
