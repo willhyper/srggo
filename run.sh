@@ -1,2 +1,2 @@
 export GOPATH=$(pwd)
-go run src/srg.go
+go run src/entry.go
