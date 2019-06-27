@@ -6,5 +6,4 @@ type Srg struct {
 	Matrix     []bool
 	filled     int
 	toFill     int
-	SymSquare  [][]bool
 }

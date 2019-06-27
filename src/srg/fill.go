@@ -18,13 +18,4 @@ func (srg *Srg) Fill(row []bool) {
 	srg.filled += srg.toFill
 	srg.toFill -= 1
 
-	// dim := len(srg.SymSquare)
-	// update SymSquare content from PivotRow, which diagonal element is excluded.
-	// size from dim x dim to (dim+1) x (dim+1)
-	pv, _ := srg.PivotRow()
-	for ci, cv := range srg.SymSquare{
-		srg.SymSquare[ci] = append(cv, pv[ci])
-	}
-	pv = append(pv, false) // diagnonal element is always false
-	srg.SymSquare = append(srg.SymSquare, pv)
 }

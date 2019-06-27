@@ -3,8 +3,6 @@ package srg
 
 func NewSrg(v, k, l, u int) *Srg {
 
-	ss := make([][]bool, 1)
-	ss[0] = []bool{false}
 
 	srg := Srg{
 		v:      v,
@@ -14,7 +12,6 @@ func NewSrg(v, k, l, u int) *Srg {
 		Matrix: make([]bool, v*(v+1)/2),
 		filled: 0,
 		toFill: v,
-		SymSquare: ss,
 	}
 
 	return &srg

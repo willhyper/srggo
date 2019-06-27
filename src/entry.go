@@ -13,7 +13,6 @@ package main
 //  [0, 0, 0, 1, 1, 1, 1, 1, 1, 0]]
 
 import "srg"
-import "fmt"
 
 func main() {
 	s := srg.NewFilledSrg(10, 6, 3, 4)
