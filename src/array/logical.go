@@ -27,7 +27,7 @@ func DotSrc(src []bool, indices1, indices2[]int) int{
 func GetValues(src []bool, indices []int) *[]bool{
 	v := make([]bool, len(indices))
 	for i:=0;i<len(indices);i++{
-		v[i] = src[i]
+		v[i] = src[indices[i]]
 	}
 	return &v
 }

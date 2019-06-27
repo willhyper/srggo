@@ -13,15 +13,14 @@ package main
 //  [0, 0, 0, 1, 1, 1, 1, 1, 1, 0]]
 
 import "srg"
+import "fmt"
 
 func main() {
 	s := srg.NewFilledSrg(10, 6, 3, 4)
+	s.Fill([]bool{false,false,false,true,true,true,true,false})
 	s.Println()
 
-	
-	// m := []bool{true, false, false, true, true}
-	// n := []bool{true, false, true, false, true}
-	// fmt.Println(m)
-	// fmt.Println(n)
-	// fmt.Println(array.Dot(m,n))	
+	fmt.Println(" ", s.PivotQuota())
+	fmt.Println("-", s.PivotProduct())
+	fmt.Println(" ", s.PivotQuotaLeft())
 }

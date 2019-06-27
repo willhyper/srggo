@@ -14,9 +14,9 @@ func (s *Srg) PivotRowIndices() []int {
 	return indices
 }
 
-func (s *Srg) PivotRow() *[]bool {
+func (s *Srg) PivotRow() []bool {
 	indices := s.PivotRowIndices()
-	return array.GetValues(s.Matrix, indices)
+	return *array.GetValues(s.Matrix, indices)
 }
 
 func (s *Srg) PivotProduct() []int {
@@ -47,4 +47,36 @@ func (s *Srg) PivotProduct() []int {
 	}
 
 	return innerProd
+}
+
+func (s *Srg) PivotQuotaLeft() []int {
+	pivotRow := s.PivotRow()
+	N := len(pivotRow)
+
+	quota := make([]int, N)
+	quotaUsed := s.PivotProduct()
+	for i := 0; i < N; i++ {
+		if pivotRow[i] {
+			quota[i] = s.l - quotaUsed[i]
+		} else {
+			quota[i] = s.u - quotaUsed[i]
+		}
+	}
+	return quota
+}
+
+
+func (s *Srg) PivotQuota() []int { // for debug purpose
+	pivotRow := s.PivotRow()
+	N := len(pivotRow)
+
+	quota := make([]int, N)
+	for i := 0; i < N; i++ {
+		if pivotRow[i] {
+			quota[i] = s.l
+		} else {
+			quota[i] = s.u
+		}
+	}
+	return quota
 }
