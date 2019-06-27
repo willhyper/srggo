@@ -1,20 +1,20 @@
 package srg
 
+import "array"
+
 // diagonal element is excluded
-func (srg *Srg) PivotRow() ([]bool, []int){
-	rowlen := srg.v - srg.toFill
+func (s *Srg) PivotRowIndices() []int{
+	rowlen := s.v - s.toFill
 
 	indices := make([]int, rowlen)
-	pivotRow := make([]bool, rowlen)
-	
 	indices[0] = rowlen
 	for i:=1;i<rowlen;i++{
-		indices[i]=indices[i-1] + srg.v - i
+		indices[i]=indices[i-1] + s.v - i
 	}
+	return indices
+}
 
-	for i, v := range indices{
-		pivotRow[i]= srg.Matrix[v]
-	}
-	return pivotRow, indices
-
+func (s *Srg) PivotRow() *[]bool{
+	indices := s.PivotRowIndices()
+	return array.GetValues(s.Matrix, indices)
 }

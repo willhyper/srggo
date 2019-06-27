@@ -11,3 +11,11 @@ func Dot(a, b []bool) int{
 	}
 	return sum
 }
+
+func GetValues(src []bool, indices []int) *[]bool{
+	v := make([]bool, len(indices))
+	for i:=0;i<len(indices);i++{
+		v[i] = src[i]
+	}
+	return &v
+}
