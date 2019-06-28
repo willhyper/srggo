@@ -16,6 +16,7 @@ import (
 	"srg"
 	"fmt"
 	"linalg"
+	"array"
 )
 
 func main() {
@@ -30,7 +31,7 @@ func main() {
 	A, b, quota := s.Question()
 
 	for answer := range linalg.Solver(A, b, quota){
-		fmt.Println(answer)
+		array.Println(answer)
 	}
 
 }
