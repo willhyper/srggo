@@ -24,10 +24,13 @@ func DotSrc(src []bool, indices1, indices2[]int) int{
 	return sum
 }
 
-func GetValues(src []bool, indices []int) *[]bool{
-	v := make([]bool, len(indices))
-	for i:=0;i<len(indices);i++{
-		v[i] = src[indices[i]]
+
+func Sum(src []bool) int{
+	sum:=0
+	for _, v := range src{
+		if v{
+			sum+=1
+		}
 	}
-	return &v
+	return sum
 }

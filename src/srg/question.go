@@ -1,5 +1,6 @@
 package srg
 
+import "array"
 
 func (s *Srg) Question() ([]bool, []int, int){
 	R := s.v - s.toFill //10 - 7 = 3
@@ -20,18 +21,10 @@ func (s *Srg) Question() ([]bool, []int, int){
 			i++
 		}
 	}
-	
 
 	b := s.PivotQuotaLeft()
 
-	pv := s.PivotRow()
-	pvSum :=0
-	for _, _pv := range pv{
-		if _pv{
-			pvSum+=1
-		}
-	}
-	quota := s.k - pvSum
+	quota := s.k - array.Sum(s.PivotRow())
 
 	return A, b, quota
 }
