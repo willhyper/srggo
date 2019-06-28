@@ -12,9 +12,11 @@ package main
 //  [0, 1, 1, 0, 1, 0, 1, 1, 0, 1],
 //  [0, 0, 0, 1, 1, 1, 1, 1, 1, 0]]
 
-import "srg"
-import "fmt"
-import "itertools"
+import (
+	"srg"
+	"fmt"
+	"linalg"
+)
 
 func main() {
 	s := srg.NewFilledSrg(10, 6, 3, 4)
@@ -25,7 +27,10 @@ func main() {
 	fmt.Println("-", s.PivotProduct())
 	fmt.Println(" ", s.PivotQuotaLeft())
 
-	for cm := range itertools.Combinations([]int{0,1,2,3},2){
-		fmt.Println(cm)
+	A, b, quota := s.Question()
+
+	for answer := range linalg.Solver(A, b, quota){
+		fmt.Println(answer)
 	}
+
 }
