@@ -14,7 +14,7 @@ package main
 
 import (
 	"srg"
-	"fmt"
+	//"fmt"
 	"linalg"
 	"array"
 )
@@ -24,10 +24,7 @@ func main() {
 	s.Fill([]bool{false,false,false,true,true,true,true,false})
 	s.Println()
 
-	fmt.Println(" ", s.PivotQuota())
-	fmt.Println("-", s.PivotProduct())
-	fmt.Println(" ", s.PivotQuotaLeft())
-
+	
 	A, b, quota := s.Question()
 
 	for answer := range linalg.Solver(A, b, quota){
