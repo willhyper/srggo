@@ -10,7 +10,7 @@ import(
 func (srg *Srg) Println() {
 	paddingFormat := "%" + strconv.Itoa(srg.v*2+2) + "v\n"
 	used := 0
-	for c := srg.v; c > 0; c-- {
+	for c := srg.v; c > srg.toFill; c-- {
 		str := array.Sprint(srg.Matrix[used : used+c])
 		fmt.Printf(paddingFormat, str)
 		used += c
