@@ -15,17 +15,16 @@ func (s *Srg) Question() ([]bool, []int, int){
 		A[i] = s.Matrix[c]
 		i++
 	}
-
 	//rest rows
-	for offset:=s.v - 1;i<R*C; offset+=offset-1{
+	cumoffset := 0
+	for offset:=s.v - 1;i<R*C; offset--{
+		cumoffset += offset
 		for c:=R+1;c<=R+C;c++{
-			A[i] = s.Matrix[c + offset]
+			A[i] = s.Matrix[c + cumoffset]
 			i++
 		}
 	}
-
 	b := s.PivotQuotaLeft()
-
 	quota := s.k - array.Sum(s.PivotRow())
 
 	return A, b, quota
