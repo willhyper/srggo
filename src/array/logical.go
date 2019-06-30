@@ -12,3 +12,28 @@ func Equal(src []bool, indices1, indices2[]int) bool{
 	}
 	return true
 }
+
+func FindInt(arr []int, val int) []int{
+	ind := make([]int, len(arr))
+	count:=0
+	for i:=0;i<len(arr);i++{
+		if arr[i]==val{
+			ind[count] = i
+			count++
+		}
+	}
+	return ind[:count]
+}
+
+
+func FindBool(arr []bool, val bool) []int{
+	ind := make([]int, len(arr))
+	count:=0
+	for i:=0;i<len(arr);i++{
+		if arr[i]==val{
+			ind[count] = i
+			count++
+		}
+	}
+	return ind[:count]
+}
