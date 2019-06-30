@@ -6,9 +6,8 @@ import (
 	"mat"
 )
 
-func Solver(A []bool, b []int, quota int) (<-chan []bool){
-	m := mat.NewMatrix(A, len(b))
-
+func Solver(m *mat.Matrix, b []int) (<-chan []bool){
+	
 	ch := make(chan []bool)
 
 	go func(){
@@ -19,7 +18,8 @@ func Solver(A []bool, b []int, quota int) (<-chan []bool){
 			pool[i]=i
 		}
 
-
+		//quota := m.C // this can be improved if knowing the b value of the row of all one
+		quota := b[m.R-1] // todo: remove this convention of appending the condition at the last element of vector b
 		x := make([]bool, m.C)
 		for indices := range itertools.Combinations(pool, quota){
 			
