@@ -14,6 +14,10 @@ func Dot(a, b []bool) int{
 
 func DotSrc(src []bool, indices1, indices2[]int) int{
 	N := len(indices1)
+	if len(indices2)!=N{
+		panic("len(indices1)!=len(indices2)")
+	}
+
 	sum:=0
 	for i:=0;i<N;i++{
 		tf := src[indices1[i]] && src[indices2[i]]
@@ -42,8 +46,8 @@ func Diff(a []int) (*[]int){
 	}
 
 	diff := make([]int, len(a)-1)
-	for i:=1;i<=len(diff);i++{
-		diff[i] = a[i]-a[i-1]
+	for i:=0;i<len(diff);i++{
+		diff[i] = a[i+1]-a[i]
 	}
 	return &diff
 }
