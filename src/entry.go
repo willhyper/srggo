@@ -14,21 +14,35 @@ package main
 
 import (
 	"srg"
-	//"fmt"
-	"linalg"
-	"array"
 )
 
 func main() {
 	s := srg.NewFilledSrg(10, 6, 3, 4)
-	s.Fill([]bool{false,false,false,true,true,true,true,false})
-	s.Println()
 
-	
-	A, b, quota := s.Question()
+	questionPool := make(chan *srg.Srg,1000)
+	questionPool<-s
 
-	for answer := range linalg.Solver(A, b, quota){
-		array.Println(answer)
-	}
-
+	gopher(questionPool)
 }
+
+func gopher(questionPool chan *srg.Srg){
+	
+	for{
+		select{
+			case q := <-questionPool:
+				if q.IsSolved(){
+					q.Println()
+				}else{
+					for possibleAnswer := range srg.Solve(q){
+						newQuestion := q.Copy()
+						newQuestion.Fill(possibleAnswer)
+						questionPool <- newQuestion
+					}
+				}
+			default:
+				return
+		}	
+	}
+}
+	
+
