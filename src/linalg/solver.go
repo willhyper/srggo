@@ -3,44 +3,37 @@ package linalg
 import (
 	"array"
 	"itertools"
+	"mat"
 )
 
 func Solver(A []bool, b []int, quota int) (<-chan []bool){
-	RC := len(A)
-	R:=len(b)
-	C:=RC/R
+	m := mat.NewMatrix(A, len(b))
 
 	ch := make(chan []bool)
 
 	go func(){
 		defer close(ch)
 
-		pool:= make([]int, C)
-		for i:=0;i<C;i++{
+		pool:= make([]int, m.C)
+		for i:=0;i<m.C;i++{
 			pool[i]=i
 		}
 
 
-		candidate := make([]bool, C)
+		x := make([]bool, m.C)
 		for indices := range itertools.Combinations(pool, quota){
-			// clear candidate
-			for i:=0;i<C;i++{candidate[i]=false}
+			
+			for i:=0 ; i < m.C ; i++ { x[i] = false} // clear x
+			for _, v:= range indices { x[v] = true } // fill true from indices
 
-			// fill true from indices
-			for _, i:= range indices{candidate[i]=true}
-
-			//candidate ready. test it with b
-			row := make([]bool, C)
-			rind :=0
-			for i:= 0; i<RC;i+=C{
-				row = A[i:i+C]
-				prod := array.Dot(row, candidate)
-				if b[rind]!=prod {break}
-				rind++
+			r := 0
+			for ; r < m.R ; r++ {
+				prod := array.Dot(m.Row(r), x)
+				if b[r] != prod {break}
 			}
-
-			if rind ==R{
-				answer := append([]bool(nil), candidate...)
+			
+			if r == m.R {				
+				answer := append([]bool(nil), x...)
 				ch <- answer
 			}
 
