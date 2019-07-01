@@ -1,12 +1,11 @@
 package array
 
 
-func Dot(a, b []bool) int{
+func Dot(vb []bool, vi []int) int{
 	sum := 0
-	for i:=0;i<len(a);i++{
-		tf := a[i] && b[i]
+	for i, tf := range vb {
 		if tf{
-			sum+=1
+			sum += vi[i]
 		}
 	}
 	return sum

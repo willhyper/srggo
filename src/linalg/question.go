@@ -33,15 +33,20 @@ func NewQuestion(A mat.Matrix, b, condition, upperBound []int) *Question {
 
 	return &q
 }
-func (q *Question) AnswerBool() []bool {
-	ansInt := q.AnswerInt() // [1,1,1,1]
+func (q *Question) AnswerBool(ansInt []int) []bool {
+	
+	//check
+	for e:=0; e< len(q.upperBound); e++{
+		q.assert(ansInt[e]<= q.upperBound[e], fmt.Sprintf("upperBound < ansInt %v", ansInt))
+	}
+
 	l := array.SumInt(q.condition) // [2,2,2,1] => 7
 	ansBool := make([]bool, l)
 
 	p:=0
 	for i, v := range q.condition {
 		numOfTrue := ansInt[i]
-		for j:=0; i<numOfTrue;j++{
+		for j:=0; j<numOfTrue;j++{
 			ansBool[p + j] = true		
 		}
 		p += v
@@ -49,11 +54,6 @@ func (q *Question) AnswerBool() []bool {
 	if(p != l) {panic("design error")}
 
 	return ansBool
-}
-
-func (q *Question) AnswerInt() []int {
-	//panic("not implemented")
-	return make([]int, 1)
 }
 
 func (q *Question) assert(condition bool, errorMessage string){
