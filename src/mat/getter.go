@@ -45,3 +45,19 @@ func (m *Matrix) Col(c int) []bool{
 	}
 	return col
 }
+
+func (m *Matrix) IndexOfUniqueCols() []int {
+
+	j:=0
+	unique := append([]int(nil),j) // first col is always unique
+	
+	for i:=0 ; i<m.C ; i=j {
+		for j = i+1 ; j<m.C ; j++ {
+			if !m.EqualCols(i, j) {
+				unique = append(unique, j)
+				break
+			}
+		}
+	}
+	return unique
+}
