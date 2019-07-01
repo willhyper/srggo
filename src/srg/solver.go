@@ -2,7 +2,6 @@ package srg
 
 import(
 	"linalg"
-	"mat"
 )
 
 func Solve(q *Srg) (<-chan []bool){
@@ -17,20 +16,11 @@ func Solve(q *Srg) (<-chan []bool){
 			answerCh <- answer
 		}()
 	}else{
-		A, b, quota := q.Question()
+		A, b, _ := q.Question()
 		go func(){
 			defer close(answerCh)
 
-			C := q.toFill - 1
-			ones := make([]bool, C)
-			for c:=0 ; c<C ; c++{
-				ones[c] = true
-			}
-			Ak := append(A, ones...)
-			bk := append(b, quota)	
-			Matk := mat.NewMatrix(Ak, len(bk))
-
-			for x := range linalg.Solver(Matk, bk){
+			for x := range linalg.Solver(A, b){
 				answer := append([]bool{false}, x...)
 				answerCh <- answer
 			}

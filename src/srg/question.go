@@ -1,8 +1,11 @@
 package srg
 
-import "array"
+import (
+	"array"
+	"mat"
+)
 
-func (s *Srg) Question() ([]bool, []int, int){
+func (s *Srg) Question() (*mat.Matrix, []int, int){
 	R := s.v - s.toFill //10 - 7 = 3
 	C := s.toFill - 1 // 7 - 1 = 6 
 	//-1 because first element in answer row is always false. 
@@ -27,5 +30,15 @@ func (s *Srg) Question() ([]bool, []int, int){
 	b := s.PivotQuotaLeft()
 	quota := s.k - array.Sum(s.PivotRow())
 
-	return A, b, quota
+	// k condition 
+	ones := make([]bool, C)
+	for c:=0 ; c<C ; c++{
+		ones[c] = true
+	}
+	Ak := append(A, ones...)
+	bk := append(b, quota)	
+	Matk := mat.NewMatrix(Ak, len(bk))
+
+
+	return Matk, bk, quota
 }
