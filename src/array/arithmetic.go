@@ -39,7 +39,7 @@ func Sum(src []bool) int{
 	return sum
 }
 
-func Diff(a []int) (*[]int){
+func Diff(a []int) []int{
 
 	if len(a)<=1{
 		panic("len(a)<=1. Cannot diff")
@@ -49,6 +49,6 @@ func Diff(a []int) (*[]int){
 	for i:=0;i<len(diff);i++{
 		diff[i] = a[i+1]-a[i]
 	}
-	return &diff
+	return diff
 }
 
