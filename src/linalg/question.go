@@ -68,6 +68,6 @@ func (q *Question) Println(){
 		Ar := *array.ToInt(q.A.Row(r))
 		fmt.Printf("%3v | %v\n", q.b[r], Ar)
 	}
-	fmt.Printf("       %v : condition\n", q.condition)
-	fmt.Printf("       %v : upperBound\n", q.upperBound)
+	fmt.Printf("      %v : condition\n", q.condition)
+	fmt.Printf("      %v : upperBound\n", q.upperBound)
 }
