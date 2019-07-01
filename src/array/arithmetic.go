@@ -29,12 +29,20 @@ func DotSrc(src []bool, indices1, indices2[]int) int{
 }
 
 
-func Sum(src []bool) int{
+func SumBool(src []bool) int{
 	sum:=0
 	for _, v := range src{
 		if v{
 			sum+=1
 		}
+	}
+	return sum
+}
+
+func SumInt(src []int) int {
+	sum:=0
+	for _, v := range src{
+		sum+=v
 	}
 	return sum
 }

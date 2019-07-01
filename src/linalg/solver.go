@@ -3,11 +3,12 @@ package linalg
 import (
 	"array"
 	"itertools"
-	"mat"
 )
 
-func Solver(m *mat.Matrix, b []int) (<-chan []bool){
-	
+func Solver(q *Question) (<-chan []bool){
+	m := q.A
+	b := q.b
+
 	ch := make(chan []bool)
 
 	go func(){

@@ -3,9 +3,10 @@ package srg
 import (
 	"array"
 	"mat"
+	"linalg"
 )
 
-func (s *Srg) Question() (*mat.Matrix, []int, int){
+func (s *Srg) Question() (*linalg.Question){
 	R := s.v - s.toFill //10 - 7 = 3
 	C := s.toFill - 1 // 7 - 1 = 6 
 	//-1 because first element in answer row is always false. 
@@ -28,17 +29,18 @@ func (s *Srg) Question() (*mat.Matrix, []int, int){
 		}
 	}
 	b := s.PivotQuotaLeft()
-	quota := s.k - array.Sum(s.PivotRow())
+	quota := s.k - array.SumBool(s.PivotRow())
 
 	// k condition 
 	ones := make([]bool, C)
+	condition := make([]int, C)
 	for c:=0 ; c<C ; c++{
 		ones[c] = true
+		condition[c] = 1
 	}
 	Ak := append(A, ones...)
 	bk := append(b, quota)	
 	Matk := mat.NewMatrix(Ak, len(bk))
 
-
-	return Matk, bk, quota
+	return linalg.NewQuestion(*Matk, bk, condition, condition)
 }

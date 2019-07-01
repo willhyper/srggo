@@ -4,23 +4,23 @@ import(
 	"linalg"
 )
 
-func Solve(q *Srg) (<-chan []bool){
+func Solve(s *Srg) (<-chan []bool){
 	answerCh := make(chan []bool)
 
-	if q.toFill == 0{
+	if s.toFill == 0{
 		panic("question is solved. Should not invoke")
-	}else if q.toFill == 1{
+	}else if s.toFill == 1{
 		go func(){
 			defer close(answerCh)
 			answer := []bool{false}
 			answerCh <- answer
 		}()
 	}else{
-		A, b, _ := q.Question()
+		q := s.Question()
 		go func(){
 			defer close(answerCh)
 
-			for x := range linalg.Solver(A, b){
+			for x := range linalg.Solver(q){
 				answer := append([]bool{false}, x...)
 				answerCh <- answer
 			}
