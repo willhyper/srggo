@@ -13,37 +13,35 @@ package main
 //  [0, 0, 0, 1, 1, 1, 1, 1, 1, 0]]
 
 import (
-	"srg"
 	"fmt"
+	"srg"
 )
 
 func main() {
 	s := srg.NewFilledSrg(10, 6, 3, 4)
 
-	questionPool := make(chan *srg.Srg,1000)
-	questionPool<-s
+	srgPool := make(chan *srg.Srg, 1000)
+	srgPool <- s
 
-	gopher(questionPool)
+	gopher(srgPool)
 }
 
-func gopher(questionPool chan *srg.Srg){
-	
-	for{
-		select{
-			case q := <-questionPool:
-				if q.IsSolved(){
-					fmt.Println(q)
-				}else{
-					for possibleAnswer := range srg.Solve(q){
-						newQuestion := q.Copy()
-						newQuestion.Fill(possibleAnswer)
-						questionPool <- newQuestion
-					}
+func gopher(srgPool chan *srg.Srg) {
+
+	for {
+		select {
+		case s := <-srgPool:
+			if s.IsSolved() {
+				fmt.Println(s)
+			} else {
+				for possibleRow := range srg.Solve(s) {
+					newSrg := s.Copy()
+					newSrg.Fill(possibleRow)
+					srgPool <- newSrg
 				}
-			default:
-				return
-		}	
+			}
+		default:
+			return
+		}
 	}
 }
-	
-
