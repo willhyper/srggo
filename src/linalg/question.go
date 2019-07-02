@@ -63,11 +63,13 @@ func (q *Question) assert(condition bool, errorMessage string){
 	}
 }
 
-func (q *Question) Println(){
+func (q *Question) String() string {
+	s := ""
 	for r:=0;r<q.A.R;r++{
 		Ar := *array.ToInt(q.A.Row(r))
-		fmt.Printf("%3v | %v\n", q.b[r], Ar)
+		s += fmt.Sprintf("%3v | %v\n", q.b[r], Ar)
 	}
-	fmt.Printf("      %v : condition\n", q.condition)
-	fmt.Printf("      %v : upperBound\n", q.upperBound)
+	s += fmt.Sprintf("      %v : condition\n", q.condition)
+	s += fmt.Sprintf("      %v : upperBound\n", q.upperBound)
+	return s
 }
