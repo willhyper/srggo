@@ -14,6 +14,7 @@ package main
 
 import (
 	"srg"
+	"fmt"
 )
 
 func main() {
@@ -31,7 +32,7 @@ func gopher(questionPool chan *srg.Srg){
 		select{
 			case q := <-questionPool:
 				if q.IsSolved(){
-					q.Println()
+					fmt.Println(q)
 				}else{
 					for possibleAnswer := range srg.Solve(q){
 						newQuestion := q.Copy()

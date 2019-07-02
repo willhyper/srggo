@@ -58,7 +58,7 @@ func (q *Question) AnswerBool(ansInt []int) []bool {
 
 func (q *Question) assert(condition bool, errorMessage string){
 	if !condition {
-		q.Println()
+		fmt.Println(q)
 		panic(errorMessage)
 	}
 }
