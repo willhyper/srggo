@@ -1,2 +1,2 @@
 export GOPATH=$(pwd)
-go run src/entry.go
+time go run src/entry.go
