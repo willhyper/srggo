@@ -22,7 +22,7 @@ func Solve(s *Srg) (<-chan []bool){
 		go func(){
 			defer close(answerCh)
 
-			for xInt := range linalg.Solver(q){
+			for xInt := range linalg.Solve(q){
 				xBool := q.AnswerBool(xInt)
 				answer := append([]bool{false}, xBool...)
 				answerCh <- answer

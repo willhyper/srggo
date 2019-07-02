@@ -1,7 +1,7 @@
 package linalg
 
 
-func Solver(q *Question) (<-chan []int){
+func Solve(q *Question) (<-chan []int){
 
 	ch := make(chan []int)
 
