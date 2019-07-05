@@ -65,14 +65,14 @@ func (s *Srg) Question() (*linalg.Question) {
 
 	// k condition 
 	ones := make([]bool, C)
-	condition := make([]int, C)
+	upperBound := make([]int, C)
 	for c:=0 ; c<C ; c++{
 		ones[c] = true
-		condition[c] = 1
+		upperBound[c] = 1
 	}
 	Ak := append(A, ones...)
 	bk := append(b, quota)	
 	Matk := mat.NewMatrix(Ak, len(bk))
 
-	return linalg.NewQuestion(Matk, bk, condition, condition)
+	return linalg.NewQuestion(Matk, bk, upperBound)
 }

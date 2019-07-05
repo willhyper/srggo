@@ -11,9 +11,9 @@ func (q *Question) CompressCols() *Question {
 
 	mReduced := m.Cols(cols)
 
-	condition := array.Diff(cols)
-	last := m.C - array.SumInt(condition)
-	condition = append(condition, last)
+	upperBound := array.Diff(cols)
+	last := m.C - array.SumInt(upperBound)
+	upperBound = append(upperBound, last)
 
-	return NewQuestion(mReduced, q.b, condition, condition)
+	return NewQuestion(mReduced, q.b, upperBound)
 }

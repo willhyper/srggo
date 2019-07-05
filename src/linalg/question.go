@@ -9,24 +9,21 @@ import (
 type Question struct{
 	A *mat.Matrix
 	b []int
-	condition []int
 	upperBound []int
 	x *Answer
 }
 
-func NewQuestion(A *mat.Matrix, b, condition, upperBound []int) *Question {
+func NewQuestion(A *mat.Matrix, b, upperBound []int) *Question {
 
 	q := Question{
 		A : A,
 		b : b,
-		condition : condition,
 		upperBound: upperBound,
-		x: NewAnswerDefault(len(condition)),
+		x: NewAnswerDefault(len(upperBound)),
 	}
 
 	// check
-	for e:=0; e<len(condition); e++ {
-		q.assert(condition[e] >= upperBound[e], "condition < upperBound")
+	for e:=0; e<len(upperBound); e++ {
 		q.assert(upperBound[e] >=0, "upperBound < 0")
 	}
 	for e:=0; e<len(b) ; e++{
@@ -51,12 +48,10 @@ func (q *Question) String() string {
 		Arstr := array.ToString("%3v", Ar)
 		s += fmt.Sprintf("%3v | %v\n", q.b[r], Arstr)
 	}
-	scondition := array.ToString("%3v", q.condition)
 	supperBound:= array.ToString("%3v", q.upperBound)
 	sx         := array.ToString("%3v", q.x.arr)
 	sloc       := array.ToString("%3v", q.x.location)
 	  
-	s += fmt.Sprintf("      %v    : condition\n", scondition)
 	s += fmt.Sprintf("      %v    : upperBound\n", supperBound)
 	s += fmt.Sprintf("      %v    : answer\n" ,sx)
 	s += fmt.Sprintf("      %v %3v: location\n" ,sloc, q.x.length)
