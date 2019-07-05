@@ -19,7 +19,8 @@ func (srg *Srg) String() string {
 	paddingFormat := "%" + strconv.Itoa(srg.v*2+2) + "v\n"
 	used := 0
 	for c := srg.v; c > srg.toFill; c-- {
-		rowstr := array.Sprint(srg.Matrix[used : used+c])
+		row := *array.ToInt(srg.Matrix[used : used+c])
+		rowstr := fmt.Sprintf("%v",row)
 		s += fmt.Sprintf(paddingFormat, rowstr)
 		used += c
 	}
