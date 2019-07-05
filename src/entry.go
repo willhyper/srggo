@@ -27,11 +27,9 @@ func main() {
 	for possibleRow := range srg.Solve(s) {
 		newSrg := s.Copy()
 		newSrg.Fill(possibleRow)
-		
-		//fmt.Println(newSrg)
 		srgPool <- newSrg
 	}
-	//gopher(srgPool)
+	// gopher(srgPool)
 }
 
 func gopher(srgPool chan *srg.Srg) {

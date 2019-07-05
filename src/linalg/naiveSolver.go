@@ -3,9 +3,10 @@ package linalg
 import (
 	"array"
 	"itertools"
+	"fmt"
 )
 
-func naiveSolver(q *Question, ch chan []int){
+func naiveSolver(q *Question, ch chan *Answer){
 	defer close(ch)
 
 	m := q.A
@@ -15,10 +16,12 @@ func naiveSolver(q *Question, ch chan []int){
 	for i:=0;i<m.C;i++{
 		pool[i]=i
 	}
+	location := append([]int(nil), pool...)
 
 	//quota := m.C // this can be improved if knowing the b value of the row of all one
 	quota := b[m.R-1] // todo: remove this convention of appending the condition at the last element of vector b
 	x := make([]int, m.C)
+	
 	for indices := range itertools.Combinations(pool, quota){
 		
 		for i:=0 ; i < m.C ; i++ { x[i] = 0} // clear x
@@ -31,7 +34,9 @@ func naiveSolver(q *Question, ch chan []int){
 		}
 		
 		if r == m.R {				
-			answer := append([]int(nil), x...)
+			answerInt := append([]int(nil), x...)
+			answer := NewAnswer(answerInt, location, m.C) //broken since using Answer struct. todo
+			fmt.Println(answer)
 			ch <- answer
 		}
 

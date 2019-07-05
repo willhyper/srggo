@@ -4,16 +4,14 @@ import (
 	"fmt"
 )
 
-func betterSolver(q *Question, ch chan []int){
+func betterSolver(q *Question, ch chan *Answer){
 	defer close(ch)
-	
-	fmt.Println(q)
-	fmt.Println("!!!!!")
 
+	fmt.Println(q)
 	qcc := q.CompressCols()
 	fmt.Println(qcc)
-
-
-	ch <- make([]int,3)
+	// under construction
+	
+	ch <- NewAnswerDefault(3)
 
 }

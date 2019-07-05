@@ -11,6 +11,7 @@ type Question struct{
 	b []int
 	condition []int
 	upperBound []int
+	x *Answer
 }
 
 func NewQuestion(A *mat.Matrix, b, condition, upperBound []int) *Question {
@@ -20,6 +21,7 @@ func NewQuestion(A *mat.Matrix, b, condition, upperBound []int) *Question {
 		b : b,
 		condition : condition,
 		upperBound: upperBound,
+		x: NewAnswerDefault(len(condition)),
 	}
 
 	// check
@@ -33,28 +35,7 @@ func NewQuestion(A *mat.Matrix, b, condition, upperBound []int) *Question {
 
 	return &q
 }
-func (q *Question) AnswerBool(ansInt []int) []bool {
-	
-	//check
-	for e:=0; e< len(q.upperBound); e++{
-		q.assert(ansInt[e]<= q.upperBound[e], fmt.Sprintf("upperBound < ansInt %v", ansInt))
-	}
 
-	l := array.SumInt(q.condition) // [2,2,2,1] => 7
-	ansBool := make([]bool, l)
-
-	p:=0
-	for i, v := range q.condition {
-		numOfTrue := ansInt[i]
-		for j:=0; j<numOfTrue;j++{
-			ansBool[p + j] = true		
-		}
-		p += v
-	}
-	if(p != l) {panic("design error")}
-
-	return ansBool
-}
 
 func (q *Question) assert(condition bool, errorMessage string){
 	if !condition {
@@ -71,5 +52,6 @@ func (q *Question) String() string {
 	}
 	s += fmt.Sprintf("      %v : condition\n", q.condition)
 	s += fmt.Sprintf("      %v : upperBound\n", q.upperBound)
+	s += fmt.Sprintf("%v",q.x)
 	return s
 }
