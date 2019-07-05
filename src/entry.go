@@ -23,7 +23,15 @@ func main() {
 	srgPool := make(chan *srg.Srg, 1000)
 	srgPool <- s
 
-	gopher(srgPool)
+	s = <-srgPool
+	for possibleRow := range srg.Solve(s) {
+		newSrg := s.Copy()
+		newSrg.Fill(possibleRow)
+		
+		//fmt.Println(newSrg)
+		srgPool <- newSrg
+	}
+	//gopher(srgPool)
 }
 
 func gopher(srgPool chan *srg.Srg) {
