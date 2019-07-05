@@ -7,13 +7,13 @@ import (
 )
 
 type Question struct{
-	A mat.Matrix
+	A *mat.Matrix
 	b []int
 	condition []int
 	upperBound []int
 }
 
-func NewQuestion(A mat.Matrix, b, condition, upperBound []int) *Question {
+func NewQuestion(A *mat.Matrix, b, condition, upperBound []int) *Question {
 
 	q := Question{
 		A : A,
