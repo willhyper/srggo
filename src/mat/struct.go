@@ -13,7 +13,7 @@ type Matrix struct {
 func (m *Matrix) String() string {
 	s := ""
 	for r := 0; r < m.R; r++ {
-		Mr := *array.ToInt(m.Row(r))
+		Mr := array.ToInt(m.Row(r))
 		s += fmt.Sprintf("%v\n", Mr)
 	}
 	return s

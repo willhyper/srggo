@@ -47,11 +47,19 @@ func (q *Question) assert(condition bool, errorMessage string){
 func (q *Question) String() string {
 	s := ""
 	for r:=0;r<q.A.R;r++{
-		Ar := *array.ToInt(q.A.Row(r))
-		s += fmt.Sprintf("%3v | %v\n", q.b[r], Ar)
+		Ar := array.ToInt(q.A.Row(r))
+		Arstr := array.ToString("%3v", Ar)
+		s += fmt.Sprintf("%3v | %v\n", q.b[r], Arstr)
 	}
-	s += fmt.Sprintf("      %v : condition\n", q.condition)
-	s += fmt.Sprintf("      %v : upperBound\n", q.upperBound)
-	s += fmt.Sprintf("%v",q.x)
+	scondition := array.ToString("%3v", q.condition)
+	supperBound:= array.ToString("%3v", q.upperBound)
+	sx         := array.ToString("%3v", q.x.arr)
+	sloc       := array.ToString("%3v", q.x.location)
+	  
+	s += fmt.Sprintf("      %v    : condition\n", scondition)
+	s += fmt.Sprintf("      %v    : upperBound\n", supperBound)
+	s += fmt.Sprintf("      %v    : answer\n" ,sx)
+	s += fmt.Sprintf("      %v %3v: location\n" ,sloc, q.x.length)
+	
 	return s
 }
