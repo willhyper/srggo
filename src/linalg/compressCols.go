@@ -4,7 +4,7 @@ import (
 	"array"
 )
 
-func (q *Question) CompressCols() *Question {
+func (q *Question) CompressCols() {
 	m := q.A
 
 	cols := m.IndexOfUniqueCols() // [0,2,4,6]
@@ -16,7 +16,10 @@ func (q *Question) CompressCols() *Question {
 	upperBound = append(upperBound, last) // [2,2,2,1]
 
 	arrNew := array.Ones(mReduced.C, UNKNOWN)
-
 	ans := NewAnswer(arrNew, cols, q.x.length)
-	return NewQuestion(mReduced, q.b, upperBound, ans)
+
+	q.A = mReduced
+	q.upperBound = upperBound
+	q.x = ans
+	//q.b = q.b // no change
 }
