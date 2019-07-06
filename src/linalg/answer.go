@@ -30,12 +30,11 @@ func NewAnswer(arr, location []int, length int) *Answer {
 }
 
 func NewAnswerDefault(length int) *Answer {
-	arr := make([]int, length)
 	location := make([]int, length)
 	for i := 0; i < length; i++ {
-		arr[i] = UNKNOWN
 		location[i] = i
 	}
+	arr := array.Ones(length, UNKNOWN)
 	return NewAnswer(arr, location, length)
 }
 
@@ -90,3 +89,4 @@ func (a *Answer) Unknown() bool {
 	}
 	return false
 }
+

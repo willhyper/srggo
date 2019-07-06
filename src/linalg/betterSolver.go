@@ -12,6 +12,7 @@ func betterSolver(q *Question, ch chan *Answer){
 	fmt.Println(qcc)
 	// under construction
 	
+
 	ch <- NewAnswerDefault(3)
 
 }

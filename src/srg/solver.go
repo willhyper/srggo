@@ -74,5 +74,5 @@ func (s *Srg) Question() (*linalg.Question) {
 	bk := append(b, quota)	
 	Matk := mat.NewMatrix(Ak, len(bk))
 
-	return linalg.NewQuestion(Matk, bk, upperBound)
+	return linalg.NewQuestionWithDefaultAnswer(Matk, bk, upperBound)
 }

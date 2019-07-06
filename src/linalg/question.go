@@ -13,13 +13,26 @@ type Question struct{
 	x *Answer
 }
 
-func NewQuestion(A *mat.Matrix, b, upperBound []int) *Question {
+func NewQuestion(A *mat.Matrix, b, upperBound []int, ans *Answer) *Question {
+	q:= newQuestion(A, b, upperBound)
+	q.x = ans
+	return q
+}
+
+
+func NewQuestionWithDefaultAnswer(A *mat.Matrix, b, upperBound []int) *Question {
+	q:= newQuestion(A, b, upperBound)
+	q.x = NewAnswerDefault(A.C)
+	return q
+}
+
+func newQuestion(A *mat.Matrix, b, upperBound []int) *Question {
 
 	q := Question{
 		A : A,
 		b : b,
 		upperBound: upperBound,
-		x: NewAnswerDefault(len(upperBound)),
+		x: nil,
 	}
 
 	// check
