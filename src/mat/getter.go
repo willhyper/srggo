@@ -81,3 +81,27 @@ func (m *Matrix) SingleOutRow(r int) ([]bool, *Matrix) {
 	}
 	return v, NewMatrix(n, R)
 }
+
+func (m *Matrix) SingleOutCol(c int) ([]bool, *Matrix) {
+	a := m.arr
+	R := m.R
+	C := m.C - 1
+	n := make([]bool, R*C)
+	v := make([]bool, R)
+
+	for r:=0; r<R; r++{
+		start := r*C
+		exclude := start + c
+		end := start + C
+
+		for i:=start;i<exclude;i++{
+			n[i-r]=a[i]
+		}
+		v[r]=a[exclude]
+		for i:=exclude+1;i<end;i++{
+			n[i-r-1] = a[i]
+		}
+	}
+	
+	return v, NewMatrix(n, R)
+}
