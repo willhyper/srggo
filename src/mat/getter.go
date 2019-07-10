@@ -61,3 +61,23 @@ func (m *Matrix) IndexOfUniqueCols() []int {
 	}
 	return unique
 }
+
+func (m *Matrix) SingleOutRow(r int) ([]bool, *Matrix) {
+	a := m.arr
+	R := m.R - 1
+	C := m.C
+	n := make([]bool, R*C)
+	v := make([]bool, C)
+	startExclude := r*C
+	resume := startExclude + C
+	for i:=0; i< startExclude;i++ {
+		n[i] = a[i]
+	}
+	for i:=startExclude; i<resume ;i++ {
+		v[i-startExclude] = a[i]
+	}
+	for i:=resume;i<len(a);i++ {
+		n[i-C] = a[i]
+	}
+	return v, NewMatrix(n, R)
+}
