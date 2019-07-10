@@ -59,3 +59,22 @@ func Diff(a []int) []int{
 	return diff
 }
 
+func Add(a []int, c int) []int {
+	b := make([]int, len(a))
+	for i:=0 ; i< len(a); i++ {
+		b[i] = a[i] + c
+	}
+	return b
+}
+
+func Substract(a []int, c int) []int{
+	return Add(a, -c)
+}
+
+func Multiply(a []int, c int) []int{
+	b := make([]int, len(a))
+	for i:=0 ; i< len(a); i++ {
+		b[i] = a[i]*c
+	}
+	return b
+}
