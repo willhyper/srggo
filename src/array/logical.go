@@ -37,3 +37,15 @@ func FindBool(arr []bool, val bool) []int{
 	}
 	return ind[:count]
 }
+
+// return the first min value and its index
+func FirstMin(a []int) (int, int) {
+	if len(a) == 0{panic("empty array")}
+	min, imin := a[0], 0
+	for i:=1;i<len(a);i++ {
+		if a[i] < min {
+			min, imin = a[i], i
+		}
+	}
+	return min, imin
+}
