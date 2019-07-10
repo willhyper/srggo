@@ -90,3 +90,14 @@ func (a *Answer) Unknown() bool {
 	return false
 }
 
+func (a *Answer) Copy() (*Answer) {
+	return &Answer{
+		arr:      a.arr,
+		location: a.location,
+		length:   a.length,
+	}
+}
+func (a *Answer) FillUnknown(ans, nth int) {
+	unknownIndexToFill := array.FindIntIndex(a.arr, UNKNOWN, nth)
+	a.arr[unknownIndexToFill] = ans
+}

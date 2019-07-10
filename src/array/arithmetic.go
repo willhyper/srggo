@@ -71,6 +71,14 @@ func Substract(a []int, c int) []int{
 	return Add(a, -c)
 }
 
+func SubstractVector(a, c []int) []int{
+	b := make([]int, len(a))
+	for i:=0 ; i< len(a); i++ {
+		b[i] = a[i] + c[i]
+	}
+	return b
+}
+
 func Multiply(a []bool, c int) []int{
 	b := make([]int, len(a))
 	for i:=0 ; i< len(a); i++ {
