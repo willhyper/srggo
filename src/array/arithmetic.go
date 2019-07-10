@@ -71,10 +71,12 @@ func Substract(a []int, c int) []int{
 	return Add(a, -c)
 }
 
-func Multiply(a []int, c int) []int{
+func Multiply(a []bool, c int) []int{
 	b := make([]int, len(a))
 	for i:=0 ; i< len(a); i++ {
-		b[i] = a[i]*c
+		if a[i]{
+			b[i] = c
+		}
 	}
 	return b
 }
