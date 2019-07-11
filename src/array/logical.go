@@ -53,3 +53,22 @@ func FirstMinIndex(a []int) int {
 	}
 	return imin
 }
+
+func AllEqualTo(a []int, val int) bool {
+	for _, v := range a {
+		if v != val {
+			return false
+		}
+	}
+	return true
+}
+
+func AllNonnegative(a []int) bool {
+	for _, v := range a {
+		if v<0 {
+			return false
+		}
+	}
+	return true
+}
+
