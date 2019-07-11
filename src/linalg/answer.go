@@ -64,22 +64,15 @@ func (a *Answer) Binarize() []bool {
 	a.assert(!a.Unknown(), "not all values are known")
 
 	ans := make([]bool, a.length)
-	p := 0
-	for i := 0; i < len(a.arr); i++ {
-		numOfTrues := a.arr[i]
-		numOfCols := a.location[i]
-		for j := p; j < p+numOfTrues; j++ {
-			ans[j] = true
+	for i, p := range a.location {
+		numOfTrue := a.arr[i]
+		for i:=0;i<numOfTrue;i++{
+			ans[p+i]=true
 		}
-		p = numOfCols
 	}
 	return ans
 }
 
-func (a *Answer) quota() []int {
-	locations := append(a.location, a.length)
-	return array.Diff(locations)
-}
 
 func (a *Answer) Unknown() bool {
 	for _, v := range a.arr {
@@ -90,14 +83,57 @@ func (a *Answer) Unknown() bool {
 	return false
 }
 
+func (a *Answer) UnknownIndicies() []int {
+	ind := make([]int, len(a.arr))
+	p:=0
+	for i, v := range a.arr {
+		if v == UNKNOWN {
+			ind[p] = i
+			p++
+		}
+	}
+	return ind[:p]
+}
+
+
+func (a *Answer) KnownIndicies() []int {
+	ind := make([]int, len(a.arr))
+	p:=0
+	for i, v := range a.arr {
+		if v != UNKNOWN {
+			ind[p] = i
+			p++
+		}
+	}
+	return ind[:p]
+}
+
 func (a *Answer) Copy() (*Answer) {
 	return &Answer{
-		arr:      a.arr,
-		location: a.location,
+		arr:      append([]int(nil), a.arr...),
+		location: append([]int(nil), a.location...),
 		length:   a.length,
 	}
 }
+
+func (a *Answer) CopySelect(indices []int) *Answer {
+	arr := make([]int, len(indices))
+	loc := make([]int, len(indices))
+
+	for inew, ioriginal := range indices {
+		arr[inew] = a.arr[ioriginal]
+		loc[inew] = a.location[ioriginal]
+	}
+	return &Answer{
+		arr:      arr,
+		location: loc,
+		length:   a.length,
+	}
+}
+
+
 func (a *Answer) FillUnknown(ans, nth int) {
 	unknownIndexToFill := array.FindIntIndex(a.arr, UNKNOWN, nth)
 	a.arr[unknownIndexToFill] = ans
 }
+
