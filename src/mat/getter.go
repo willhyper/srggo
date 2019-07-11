@@ -1,7 +1,8 @@
 package mat
 
-import "array"
-
+import (
+	"array"
+)
 func (m *Matrix) IndicesOfRow(row int) []int {
 	ind := make([]int, m.C)
 	offset := row * m.C
@@ -85,8 +86,8 @@ func (m *Matrix) SingleOutRow(r int) ([]bool, *Matrix) {
 func (m *Matrix) SingleOutCol(c int) ([]bool, *Matrix) {
 	a := m.arr
 	R := m.R
-	C := m.C - 1
-	n := make([]bool, R*C)
+	C := m.C // old matrix dimension
+	n := make([]bool, R*C-R) //new matrix length
 	v := make([]bool, R)
 
 	for r:=0; r<R; r++{
