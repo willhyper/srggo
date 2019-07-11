@@ -74,7 +74,7 @@ func Substract(a []int, c int) []int{
 func SubstractVector(a, c []int) []int{
 	b := make([]int, len(a))
 	for i:=0 ; i< len(a); i++ {
-		b[i] = a[i] + c[i]
+		b[i] = a[i] - c[i]
 	}
 	return b
 }
