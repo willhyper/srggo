@@ -30,18 +30,6 @@ func FindIntIndex(arr []int, val, nth int) int{
 }
 
 
-func FindBool(arr []bool, val bool) []int{
-	ind := make([]int, len(arr))
-	count:=0
-	for i:=0;i<len(arr);i++{
-		if arr[i]==val{
-			ind[count] = i
-			count++
-		}
-	}
-	return ind[:count]
-}
-
 // return the index of first min value in array a
 func FirstMinIndex(a []int) int {
 	if len(a) == 0{panic("empty array")}

@@ -1,16 +1,6 @@
 package array
 
 
-func Dot(vb []bool, vi []int) int{
-	sum := 0
-	for i, tf := range vb {
-		if tf{
-			sum += vi[i]
-		}
-	}
-	return sum
-}
-
 func DotSrc(src []bool, indices1, indices2[]int) int{
 	N := len(indices1)
 	if len(indices2)!=N{
@@ -27,21 +17,12 @@ func DotSrc(src []bool, indices1, indices2[]int) int{
 	return sum
 }
 
-
 func SumBool(src []bool) int{
 	sum:=0
 	for _, v := range src{
 		if v{
 			sum+=1
 		}
-	}
-	return sum
-}
-
-func SumInt(src []int) int {
-	sum:=0
-	for _, v := range src{
-		sum+=v
 	}
 	return sum
 }
@@ -59,17 +40,6 @@ func Diff(a []int) []int{
 	return diff
 }
 
-func Add(a []int, c int) []int {
-	b := make([]int, len(a))
-	for i:=0 ; i< len(a); i++ {
-		b[i] = a[i] + c
-	}
-	return b
-}
-
-func Substract(a []int, c int) []int{
-	return Add(a, -c)
-}
 
 func SubstractVector(a, c []int) []int{
 	b := make([]int, len(a))
