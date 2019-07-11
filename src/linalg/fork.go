@@ -4,7 +4,7 @@ import (
 	"array"
 )
 
-func fork(q *Question, qchan chan *Question) {
+func Fork(q *Question, qchan chan *Question) {
 
 	q.assert(q.x.Unknown(), "question is solved. no fork required")
 
@@ -15,10 +15,12 @@ func fork(q *Question, qchan chan *Question) {
 		anscol := array.Multiply(col, ans)
 		bnew := array.SubstractVector(q.b, anscol)
 
-		ansnew := q.x.Copy()
-		ansnew.FillUnknown(ans, ci)
-
-		qnew := NewQuestion(Anew, bnew, upperBoundNew, ansnew)
-		qchan <- qnew
+		if array.AllNonnegative(bnew){
+			ansnew := q.x.Copy()
+			ansnew.FillUnknown(ans, ci)
+	
+			qnew := NewQuestion(Anew, bnew, upperBoundNew, ansnew)
+			qchan <- qnew
+		}
 	}
 }
