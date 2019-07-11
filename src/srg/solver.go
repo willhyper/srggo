@@ -6,38 +6,9 @@ import (
 	"linalg"
 )
 
-func Solve(s *Srg) (<-chan []bool){
-	answerCh := make(chan []bool)
-
-	if s.toFill == 0{
-		panic("question is solved. Should not invoke")
-	}else if s.toFill == 1{
-		go func(){
-			defer close(answerCh)
-			answer := []bool{false}
-			answerCh <- answer
-		}()
-	}else{
-		q := s.Question()
-		go func(){
-			defer close(answerCh)
-
-			for ans := range linalg.Solve(q){
-				xBool := ans.Binarize()
-				answer := append([]bool{false}, xBool...)
-				answerCh <- answer
-			}
-		}()
-	}
-
-	return answerCh
+func (s *Srg) ToFill() int {
+	return s.toFill
 }
-
-func (s *Srg) IsSolved() bool{
-	return s.toFill == 0
-}
-
-
 func (s *Srg) Question() (*linalg.Question) {
 	R := s.v - s.toFill //10 - 7 = 3
 	C := s.toFill - 1 // 7 - 1 = 6 
