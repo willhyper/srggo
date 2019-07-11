@@ -5,10 +5,11 @@ import (
 )
 
 func Simplify(q *Question) {
-	q.CompressCols()	
+	compressCols(q)
 }
 
-func (q *Question) CompressCols() {
+
+func compressCols(q *Question) {
 	m := q.A
 	if m.C < 2 {return} // no bother compressing
 
