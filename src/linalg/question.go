@@ -16,6 +16,7 @@ type Question struct{
 func NewQuestion(A *mat.Matrix, b, upperBound []int, ans *Answer) *Question {
 	q:= newQuestion(A, b, upperBound)
 	q.x = ans
+	q.integrityCheck()
 	return q
 }
 
@@ -23,29 +24,27 @@ func NewQuestion(A *mat.Matrix, b, upperBound []int, ans *Answer) *Question {
 func NewQuestionWithDefaultAnswer(A *mat.Matrix, b, upperBound []int) *Question {
 	q:= newQuestion(A, b, upperBound)
 	q.x = NewAnswerDefault(A.C)
+	q.integrityCheck()
 	return q
 }
 
+func (q *Question) integrityCheck() {
+	q.assert(q.x != nil, "answer is not initialized")
+	for e:=0; e<len(q.upperBound); e++ {
+		q.assert(q.upperBound[e] >=0, "upperBound < 0")
+	}
+	for e:=0; e<len(q.b) ; e++{
+		q.assert(q.b[e] >= 0, "b < 0")
+	}
+}
 func newQuestion(A *mat.Matrix, b, upperBound []int) *Question {
-
-	q := Question{
+	return &Question{
 		A : A,
 		b : b,
 		upperBound: upperBound,
 		x: nil,
 	}
-
-	// check
-	for e:=0; e<len(upperBound); e++ {
-		q.assert(upperBound[e] >=0, "upperBound < 0")
-	}
-	for e:=0; e<len(b) ; e++{
-		q.assert(b[e] >= 0, "b < 0")
-	}
-
-	return &q
 }
-
 
 func (q *Question) assert(condition bool, errorMessage string){
 	if !condition {
@@ -65,9 +64,17 @@ func (q *Question) String() string {
 	sx         := array.ToString("%3v", q.x.arr)
 	sloc       := array.ToString("%3v", q.x.location)
 	  
-	s += fmt.Sprintf("      %v    : upperBound\n", supperBound)
-	s += fmt.Sprintf("      %v    : answer\n" ,sx)
-	s += fmt.Sprintf("      %v %3v: location\n" ,sloc, q.x.length)
+	s += fmt.Sprintf("      %v: upperBound\n", supperBound)
+	s += fmt.Sprintf("Answer:\n")
+	s += fmt.Sprintf("      %v\n" ,sx)
+	s += fmt.Sprintf("      %v %3v\n" ,sloc, q.x.length)
 	
 	return s
+}
+
+func (q *Question) IsSolved() bool {
+	if(!array.AllEqualTo(q.b, 0)) {return false}
+	if(q.x.Unknown()) {return false}
+	return true
+
 }
