@@ -54,6 +54,16 @@ func FirstMinIndex(a []int) int {
 	return imin
 }
 
+func Min(a ...int) int {
+	min := a[0]
+	for _, v := range a {
+		if v < min {
+			min = v
+		}
+	}
+	return min
+}
+
 func AllEqualTo(a []int, val int) bool {
 	for _, v := range a {
 		if v != val {

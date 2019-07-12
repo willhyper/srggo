@@ -8,6 +8,18 @@ import (
 func Simplify(q *Question) {
 	compressCols(q) // this enforces 1's moved ahead
 	zeroUpperBound(q)
+	lowerUpperBound(q)
+}
+
+func lowerUpperBound(q *Question) {
+	for r, b := range q.b {
+		Ar := q.A.Row(r)
+		for c, _true := range Ar {
+			if _true {
+				q.upperBound[c] = array.Min(q.upperBound[c], b)
+			}
+		}
+	}
 }
 
 func zeroUpperBound(q *Question) {
