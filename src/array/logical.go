@@ -29,6 +29,18 @@ func FindIntIndex(arr []int, val, nth int) int{
 	return -1
 }
 
+// find all occurrence indices of val in array arr
+func FindInt(arr []int, val int) []int {
+	ind := make([]int, len(arr))
+	occurence := 0
+	for i, v := range arr {
+		if v==val {
+			ind[occurence] = i
+			occurence++
+		}
+	}
+	return ind[:occurence]
+}
 
 // return the index of first min value in array a
 func FirstMinIndex(a []int) int {
