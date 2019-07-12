@@ -7,7 +7,7 @@ import (
 func Fork(q *Question, qchan chan *Question) {
 
 	q.assert(q.x.Unknown(), "Answer is known. no fork required")
-	q.assert(!q.A.IsEmpty(), "cannot fork an empty matrix")
+	q.assert(q.A.C>0, "cannot fork an empty matrix")
 
 	ci := array.FirstMinIndex(q.upperBound)
 	col, Anew := q.A.SingleOutCol(ci)
