@@ -48,7 +48,7 @@ func (m *Matrix) Col(c int) []bool{
 }
 
 func (m *Matrix) IndexOfUniqueCols() []int {
-
+	//assume Columns are sorted
 	j:=0
 	unique := append([]int(nil),j) // first col is always unique
 	

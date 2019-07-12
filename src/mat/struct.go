@@ -18,3 +18,7 @@ func (m *Matrix) String() string {
 	}
 	return s
 }
+
+func (m *Matrix) IsEmpty() bool {
+	return len(m.arr) == 0
+}
