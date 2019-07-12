@@ -30,13 +30,9 @@ func NewQuestionWithDefaultAnswer(A *mat.Matrix, b, upperBound []int) *Question 
 
 func (q *Question) integrityCheck() {
 	q.assert(q.x != nil, "answer is not initialized")
-	for e:=0; e<len(q.upperBound); e++ {
-		q.assert(q.upperBound[e] >=0, "upperBound < 0")
-	}
-	for e:=0; e<len(q.b) ; e++{
-		q.assert(q.b[e] >= 0, "b < 0")
-	}
+	q.assert(q.A.C == len(q.x.UnknownIndicies()), "answer and question out of sync")
 }
+
 func newQuestion(A *mat.Matrix, b, upperBound []int) *Question {
 	return &Question{
 		A : A,
