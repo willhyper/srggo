@@ -1,6 +1,7 @@
 package linalg
 
 import (
+	"array"
 )
 
 func BuildSolver(numOfWorker int) func(*Question) chan *Answer {
@@ -20,12 +21,14 @@ func BuildSolver(numOfWorker int) func(*Question) chan *Answer {
 					// there is still unknown => simplify and fork
 					// there is no unknown but b!=0, not solvable, discard
 					// there is no unknow and b ==0, this is answer so put into AnsChan
-
-					if q.x.Unknown() {
-						Simplify(q)
-						Fork(q, QChan)
-					} else if q.IsSolved() {
+					Simplify(q)
+						
+					if q.IsSolved() {
 						AnsChan <- q.x
+					} else if q.x.Unknown() {
+						if Solvable(q) {
+							Fork(q, QChan)
+						}
 					}
 				} else {
 					break
@@ -34,4 +37,18 @@ func BuildSolver(numOfWorker int) func(*Question) chan *Answer {
 		}()
 		return AnsChan
 	}
+}
+
+// note this has been under assumption of there is unknown.
+func Solvable(q *Question) bool {
+	_true := array.AllNonnegative(q.b)
+	if !_true {return false}
+
+	_true = q.A.C > 0 // matrix is not empty
+	if !_true {return false}
+
+	_true = array.AllNonnegative(q.upperBound)
+	if !_true {return false}
+
+	return true
 }
